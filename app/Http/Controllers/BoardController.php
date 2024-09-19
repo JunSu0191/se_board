@@ -14,7 +14,7 @@ class BoardController extends Controller
     public function boardlist() {
         $board = Board::with('user')->paginate(10);
 
-        return view('dashboard',['board' => $board]);
+        return view('boards',['board' => $board]);
     }
 
     public function insertBoard(Request $request)
@@ -39,7 +39,7 @@ class BoardController extends Controller
                 'views' => 0,
             ]);
 
-            return redirect()->route('dashboard')->with('success', '게시글이 성공적으로 등록되었습니다.');
+            return redirect()->route('boards')->with('success', '게시글이 성공적으로 등록되었습니다.');
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }

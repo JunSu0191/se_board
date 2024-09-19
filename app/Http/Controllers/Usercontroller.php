@@ -9,6 +9,6 @@ class Usercontroller extends Controller
 {
     public function selectuser() {
         $user = User::find(1);
-        return view('dashboard',['user' => $user]);
+        return view('boards',['user' => $user]);
     }
 }
