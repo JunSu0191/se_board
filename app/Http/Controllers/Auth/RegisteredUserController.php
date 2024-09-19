@@ -29,24 +29,33 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['required', 'string', 'max:12'],
-            'department' => ['required', 'string', 'max:255']
-        ]);
+        $customMessages = [
+            'name.required' => '이름을 입력해 주세요.',
+            'email.required' => '이메일을 입력해 주세요.',
+            'email.email' => '올바른 이메일 형식을 입력해 주세요.',
+            'email.unique' => '이미 사용 중인 이메일입니다.',
+            'password.required' => '비밀번호를 입력해 주세요.',
+            'password.min' => '비밀번호를 8자리 이상으로 입력해 주세요.',
+            'password.confirmed' => '비밀번호가 일치하지 않습니다.',
+            'phone.required' => '전화번호를 입력해 주세요.',
+            'phone.regex' => '전화번호는 01X로 시작하고 11~12 자리여야 합니다.',
+            'department.required' => '부서명을 입력해 주세요.',
+        ];
 
-        // $user = User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        // ]);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'regex:/^01[0-9]{9,10}$/'],
+            'department' => ['required', 'string', 'max:255']
+        ], $customMessages);
+
+        // 추가 커스텀 로직
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'phone' => $data['phone'],
             'department' => $request->department,
         ]);
 

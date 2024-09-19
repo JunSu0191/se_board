@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthEmailController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -21,6 +22,14 @@ Route::middleware('guest')->group(function () {
                 ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    Route::get('forgot-email', [AuthEmailController::class, 'create'])
+                ->name('email.request');
+
+    Route::post('forgot-email', [AuthEmailController::class, 'store'])
+                ->name('email.find');
+
+    Route::get('email-found', [AuthEmailController::class, 'emailFound'])->name('email.found');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
