@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('board', function (Blueprint $table) {
-            $table->id('board_id');
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
             $table->string('title');
-            $table->text('content');
+            $table->text('body');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();
-            $table->char('delete_yn')->default('N');
-            $table->integer('views')->nullable();
-            $table->string('email')->nullable();
-            $table->foreign('email')->references('email')->on('users');
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::dropIfExists('boards');
+        Schema::dropIfExists('posts');
     }
 };

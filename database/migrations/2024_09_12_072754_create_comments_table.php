@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->integer('board_id')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->char('delete_yn')->default('N');
-            $table->foreign('email')->references('email')->on('users');
-            $table->foreign('board_id')->references('board_id')->on('board');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('board_id')->constrained();
         });
     }
 

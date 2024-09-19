@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->id();
-            $table->integer('board_id')->nullable();
             $table->string('title');
             $table->text('content');
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->softdeletes();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('views')->nullable();
             $table->string('email')->nullable();
-
-            // 외래 키 설정 (users 테이블의 user_id와 연결)
             $table->foreign('email')->references('email')->on('users');
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::dropIfExists('schedules');
+        // Schema::dropIfExists('boards');
     }
 };

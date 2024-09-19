@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('department');
             $table->timestamps();
             $table->softDeletes();
-            $table->char('delete_yn')->default('N');
             $table->string('remember_token')->nullable();
         });
 
