@@ -52,4 +52,9 @@ class User extends Authenticatable
     public function posts() : HasMany {
         return $this->hasMany(Post::class);
     }
+
+    public function boards() : HasMany
+    {
+        return $this->hasMany(Board::class, 'email','email');
+    }
 }
