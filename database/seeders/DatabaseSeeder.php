@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
             // 'email' => 'test@example.com',
         ]);
 
-        Department::factory(10)->create();
+        // Department::factory(10)->create();
 
-        Department::factory()->create([
-            'title' => 'Test User',
-            'content' => 'test@example.com',
-        ]);
+        // Department::factory()->create([
+        //     'title' => 'Test User',
+        //     'content' => 'test@example.com',
+        // ]);
     }
 }

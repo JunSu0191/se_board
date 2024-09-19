@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('file_name');
             $table->text('file_path');
-            $table->string('filw_size');
+            $table->string('file_size');
             $table->string('file_type');
-            $table->char('delete_yn')->default('N');
+            $table->foreignId('board_id')->constrained();
             $table->timestamps();
-            $table->integer('board_id')->nullable();
-            $table->foreign('board_id')->references('board_id')->on('board');
+            // $table->integer('board_id')->nullable();
+            // $table->foreign('board_id')->references('board_id')->on('board');
         });
     }
 
