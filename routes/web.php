@@ -7,9 +7,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/boards', function () {
+    return view('boards');
+})->middleware(['auth', 'verified'])->name('boards');
+
+Route::get('/schedules', function () {
+    return view('schedules');
+})->middleware(['auth', 'verified'])->name('schedules');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
