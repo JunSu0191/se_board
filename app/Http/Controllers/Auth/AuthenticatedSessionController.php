@@ -22,9 +22,21 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        // 맞춤 메시지 설정
+
+        // 유효성 검사 규칙
+        $data = $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        if (!Auth::attempt($data)) {
+            return back()->withErrors([
+                'email' => '이메일 또는 비밀번호가 틀렸습니다.',
+            ])->withInput();
+        }
 
         $request->session()->regenerate();
 

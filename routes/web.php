@@ -3,7 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\BoardController;
+use App\Mail\LoginMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
+// Route::get('test', function () {
+//    Mail::to('tlswsnstn0191@naver.com')->send(
+//     new LoginMail()
+//    );
+//    return 'Done';
+// });
 
 Route::get('/', function () {
     return view('welcome');
