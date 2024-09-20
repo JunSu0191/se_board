@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class BoardController extends Controller
 {
     public function boardlist() {
-        $board = Board::with('user')->where('deleted_at',null)->paginate(10);
+        $board = Board::with('user')->paginate(10);
         return view('boards.index',['board' => $board]);
     }
 
