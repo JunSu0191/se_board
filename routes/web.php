@@ -28,9 +28,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/insertboards', function () {
-    return view('insertboards');
+    return view('boards.insert');
 });
 
-Route::post('/insertboard', [BoardController::class, 'insertBoard'])->name('boards.insert');
+Route::post('/insertboard', [BoardController::class, 'insertBoard'])->name('board.insert');
+Route::get('/board/{id}', [BoardController::class, 'selectboard'])->name('boards.show');
+Route::get('/boards/{id}/edit', [BoardController::class, 'edit'])->name('boards.edit');
+Route::put('/boards/{id}', [BoardController::class, 'update'])->name('boards.update');
+
+Route::delete('/boards/{id}', [BoardController::class, 'delete'])->name('boards.delete');
+
 
 require __DIR__.'/auth.php';

@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class BoardController extends Controller
 {
     public function boardlist() {
-        $board = Board::with('user')->paginate(10);
-
-        return view('boards',['board' => $board]);
+        $board = Board::with('user')->where('deleted_at',null)->paginate(10);
+        return view('boards.index',['board' => $board]);
     }
 
     public function insertBoard(Request $request)
@@ -26,7 +25,6 @@ class BoardController extends Controller
                 'content' => 'required|string',
             ]);
 
-            // 현재 사용자 ID 가져오기
             $user_name = Auth::user()->name;
 
             $user = User::where('name',$user_name)->first();
@@ -44,5 +42,39 @@ class BoardController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
-}
 
+    public function selectboard($id) {
+        $board = Board::with('user')
+        ->where('id',$id)->first();
+
+        // dd($data);
+
+        return view('boards.show',['board' => $board]);
+    }
+
+    public function edit($id)
+    {
+        $board = Board::findOrFail($id);
+        return view('boards.edit', compact('board'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $board = Board::findOrFail($id);
+        $board->title = $request->input('title');
+        $board->content = $request->input('content');
+        $board->save();
+
+        return redirect()->route('boards.show', $id)->with('success', '게시물이 수정되었습니다.');
+    }
+
+    public function delete($id) {
+        Board::findOrFail($id)->delete();
+        return redirect()->route('boards')->with('success', '게시물이 삭제되었습니다.');
+    }
+}
