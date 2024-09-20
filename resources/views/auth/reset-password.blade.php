@@ -32,7 +32,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('비밀번호 초기화') }}
+                {{ __('비밀번호 변경') }}
             </x-primary-button>
         </div>
     </form>
