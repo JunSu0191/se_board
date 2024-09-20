@@ -9,44 +9,41 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="py-12 flex justify-center">
-                    <div class="overflow-x-auto">
-                        <form method="POST" action="{{ route('boards.insert') }}">
+                    <div class="w-full max-w-4xl p-4">
+                        <form method="POST" action="{{ route('board.insert') }}" class="space-y-4">
                             @csrf
                             <div class="mt-4">
-                                <x-label value="{{Auth::user()->name}}"/>
+                                <strong>
+                                    <x-label value="{{Auth::user()->name}}"/>
+                                </strong>
                             </div>
-                            <!-- 비밀번호 -->
                             <div class="mt-4">
                                 <x-input-label for="title" :value="__('제목')" />
 
                                 <x-text-input id="title" class="block mt-1 w-full"
                                                 type="text"
                                                 name="title"
-                                                required/>
+                                                required />
 
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div>
                             <div class="mt-4">
                                 <x-input-label for="content" :value="__('내용')" />
-
-                                <x-text-input id="content" class="block mt-1 w-full"
-                                                type="text"
+                                <x-textarea id="content" class="block mt-1 w-full"
                                                 name="content"
-                                                required/>
-
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                                rows="8"
+                                                required />
+                                <x-input-error :messages="$errors->get('content')" class="mt-2" />
                             </div>
                             <div class="flex justify-end p-4">
                                 <x-primary-button>
                                     {{ __('등록') }}
                                 </x-primary-button>
-                        </div>
+                            </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </x-app-layout>
