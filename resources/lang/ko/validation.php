@@ -33,7 +33,7 @@ return [
     ],
     'boolean' => ':attribute는 true 또는 false여야 합니다.',
     'can' => ':attribute 필드에 허용되지 않는 값이 포함되어 있습니다.',
-    'confirmed' => ':attribute가 일치하지 않습니다.',
+    'confirmed' => ':attribute 확인이 일치하지 않습니다.',
     'contains' => ':attribute에 필수 값이 누락되었습니다.',
     'current_password' => '비밀번호가 올바르지 않습니다.',
     'date' => ':attribute는 유효한 날짜여야 합니다.',
@@ -189,7 +189,7 @@ return [
 
     'attributes' => [
         'password' => '비밀번호',
-        'phone' => '전화번호'
+        'phone' => '전화번호',
     ],
 
 ];
